@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 class ExcelLogger:
-    def __init__(self, out_dir=".", filename_template="工作记录_{year}.xlsx"):
+    def __init__(self, out_dir=".", filename_template="report_{year}.xlsx"):
         """
         out_dir: 存放 Excel 的目录
         filename_template: 文件名模板，{year} 会被替换为年份

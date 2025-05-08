@@ -52,9 +52,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.save_btn.clicked.connect(self.save_to_excel)
 
         # --- 日志存储 ---
-        # 文件会输出到脚本同级目录，可改成其他路径
-        out_dir = os.path.dirname(os.path.abspath(__file__))
-        self.logger = ExcelLogger(out_dir=out_dir)
+        # # 文件会输出到脚本同级目录，可改成其他路径
+        # out_dir = os.path.dirname(os.path.abspath(__file__))
+        # self.logger = ExcelLogger(out_dir=out_dir)
+        # --- 日志存储 ---
+        # 输出目录：如果被 PyInstaller 冻结成 exe，用 exe 所在目录；否则用脚本目录
+        if getattr(sys, "frozen", False):
+            base_dir = os.path.dirname(sys.executable)
+        else:
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+        self.logger = ExcelLogger(out_dir=base_dir)
 
     def save_to_excel(self):
         date = self.date_edit.date().toString("yyyy-MM-dd")
